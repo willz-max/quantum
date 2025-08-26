@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qfs goldgridledger</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    
+
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
-    
+
     <style>
         :root {
             --primary-orange: #ff6b35;
@@ -205,7 +206,9 @@
         }
 
         /* Cards */
-        .feature-card, .why-choose-card, .highlight-card {
+        .feature-card,
+        .why-choose-card,
+        .highlight-card {
             background: var(--dark-tertiary);
             border: 1px solid rgba(255, 107, 53, 0.2);
             border-radius: 15px;
@@ -215,13 +218,17 @@
             text-align: center;
         }
 
-        .feature-card:hover, .why-choose-card:hover, .highlight-card:hover {
+        .feature-card:hover,
+        .why-choose-card:hover,
+        .highlight-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary-orange);
             box-shadow: 0 15px 35px rgba(255, 107, 53, 0.2);
         }
 
-        .feature-icon, .why-choose-icon, .highlight-icon {
+        .feature-icon,
+        .why-choose-icon,
+        .highlight-icon {
             width: 60px;
             height: 60px;
             margin: 0 auto 1.5rem;
@@ -234,13 +241,17 @@
             color: white;
         }
 
-        .feature-card h3, .why-choose-card h3, .highlight-card h3 {
+        .feature-card h3,
+        .why-choose-card h3,
+        .highlight-card h3 {
             color: var(--text-light);
             margin-bottom: 1rem;
             font-weight: 600;
         }
 
-        .feature-card p, .why-choose-card p, .highlight-card p {
+        .feature-card p,
+        .why-choose-card p,
+        .highlight-card p {
             color: var(--text-gray);
             line-height: 1.6;
         }
@@ -414,8 +425,9 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
             opacity: 0.1;
         }
-        .navbar-brand img{
-            width: 66px;
+
+        .navbar-brand img {
+            width: 88px;
         }
 
         /* Responsive adjustments */
@@ -423,11 +435,11 @@
             .hero-title {
                 font-size: 2.5rem;
             }
-            
+
             .section-title {
                 font-size: 2rem;
             }
-            
+
             .hero-content {
                 text-align: center;
             }
@@ -447,38 +459,52 @@
             }
         }
 
-        .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-1 {
+            animation-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            animation-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            animation-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            animation-delay: 0.4s;
+        }
+
+        .hero-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 450px;
+            opacity: 0.15;
+            z-index: 2;
+        }
     </style>
 </head>
+
 <body data-bs-theme="dark">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#"><img src="assets/img/quantum-image.png" alt=""></a>
-            
+
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-4">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#products">Products</a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#testimonials">Testimonials</a>
-                    </li> -->
+
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About Us</a>
                     </li>
                 </ul>
-                
+
                 <div class="d-flex gap-2">
                     <a href="sign-in.html" class="btn btn-custom-outline">Sign In</a>
                     <a href="sign-up.html" class="btn btn-custom-filled">Get Started</a>
@@ -490,7 +516,10 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
-        
+
+        <!-- Center Logo Background -->
+        <img src="assets/img/quantum-image.png" alt="Company Logo" class="hero-logo">
+
         <div class="hero-content">
             <div class="container">
                 <div class="row">
@@ -499,11 +528,11 @@
                             The Biggest Revolutionize <span class="text-primary-orange">Financial system</span>
                         </h1>
                         <p class="hero-description animate__animated animate__zoomIn animate__delay-1s">
-                           Be part of a global movement to decentralize finance and empower individuals
+                            Be part of a global movement to decentralize finance and empower individuals
                         </p>
-                        <div class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-2s justify-content-center">
+                        <div
+                            class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-2s justify-content-center">
                             <a href="sign-up.html" class="btn btn-custom-filled btn-md">Join Us Now</a>
-                            <!-- <button class="btn btn-custom-outline btn-lg">Learn More</button> -->
                         </div>
                     </div>
                 </div>
@@ -511,415 +540,8 @@
         </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <!-- <section class="section-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title">Why Choose <span class="highlight-text">Us</span>?</h2>
-                    <p class="section-subtitle">Discover what set us apart in the financial industry</p>
-                </div>
-            </div>
-            
-            <div class="row g-4">
-  <div class="col-md-6 col-lg-4">
-    <div class="why-choose-card fade-in-up stagger-1">
-      <div class="why-choose-icon">
-        <i class="fas fa-chart-line"></i>
-      </div>
-      <h3>Smart Investment Insights</h3>
-      <p>Gain access to expert analysis, real-time market data, and AI-driven insights to make informed investment decisions.</p>
-    </div>
-  </div>
-  <div class="col-md-6 col-lg-4">
-    <div class="why-choose-card fade-in-up stagger-2">
-      <div class="why-choose-icon">
-        <i class="fas fa-bolt"></i>
-      </div>
-      <h3>Fast and Secure Transactions</h3>
-      <p>Enjoy lightning-fast transaction processing and robust security measures to protect your financial assets.</p>
-    </div>
-  </div>
-  <div class="col-md-6 col-lg-4">
-    <div class="why-choose-card fade-in-up stagger-3">
-      <div class="why-choose-icon">
-        <i class="fas fa-globe"></i>
-      </div>
-      <h3>Global Investment Opportunities</h3>
-      <p>Invest in a diverse range of assets, including stocks, bonds, and real estate, all from a single platform.</p>
-    </div>
-  </div>
-  <div class="col-md-6 col-lg-4">
-    <div class="why-choose-card fade-in-up stagger-1">
-      <div class="why-choose-icon">
-        <i class="fas fa-shield-alt"></i>
-      </div>
-      <h3>Protected and Insured</h3>
-      <p>Your investments and personal data are safeguarded with industry-leading security measures and insurance protection.</p>
-    </div>
-  </div>
-  <div class="col-md-6 col-lg-4">
-    <div class="why-choose-card fade-in-up stagger-2">
-      <div class="why-choose-icon">
-        <i class="fas fa-users"></i>
-      </div>
-      <h3>Expert Guidance</h3>
-      <p>Get personalized investment advice and portfolio management from experienced financial experts.</p>
-    </div>
-  </div>
-  <div class="col-md-6 col-lg-4">
-    <div class="why-choose-card fade-in-up stagger-3">
-      <div class="why-choose-icon">
-        <i class="fas fa-headset"></i>
-      </div>
-      <h3>24/7 Support</h3>
-      <p>Enjoy round-the-clock customer support and financial guidance whenever you need it.</p>
-    </div>
-  </div>
-</div>
 
-        </div>
-    </section> -->
 
-    <!-- Key Highlights -->
-    <!-- <section class="section-darker">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="highlight-card text-center">
-                        <div class="highlight-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>Proven Performance</h3>
-                        <p>100% of users seeing positive returns</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="highlight-card text-center">
-                        <div class="highlight-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Risk Management</h3>
-                        <p>Advanced tools to set stop-loss and take-profit levels</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="highlight-card text-center">
-                        <div class="highlight-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3>Global Community</h3>
-                        <p>Join 4M+ users sharing strategies</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Features Section -->
-    <!-- <section id="features" class="section-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title">Powerful Features for <span class="highlight-text">Successful Earning</span></h2>
-                    <p class="section-subtitle">Our platform combines cutting-edge technology with user-friendly tools</p>
-                </div>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>Real-Time Performance Tracking</h3>
-                        <p>Monitor your portfolio with advanced analytics and real-time updates.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3>Automated Trading</h3>
-                        <p>Set up once and let our system automatically copy trades from selected experts 24/7.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3>Instant Execution</h3>
-                        <p>Fast, secure, and reliable transactions. Instant processing, every time.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Risk Management Tools</h3>
-                        <p>Customize risk levels, set drawdown limits, and implement stop-loss strategies.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-area"></i>
-                        </div>
-                        <h3>Diversified Portfolio</h3>
-                        <p>Follow multiple users across different markets for balanced investment strategies.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>Mobile Ready</h3>
-                        <p>Access your account and monitor performance on the go with our mobile application.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Products Section -->
-    <!-- <section id="products" class="section-darker"> -->
-        <!-- <div class="container"> -->
-            <!-- <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title"><span class="highlight-text">Comprehensive</span> Trading Products</h2>
-                    <p class="section-subtitle">Explore our diverse range of trading instruments</p>
-                </div>
-            </div> -->
-            
-            <!-- Copy Trading Product -->
-            <!-- <div class="product-feature">
-                <div class="row g-0">
-                    <div class="col-lg-6 p-4">
-                        <div class="feature-icon mb-3">
-                            <i class="fas fa-copy"></i>
-                        </div>
-                        <h2 class="h3 mb-3 text-primary-orange">Copy Trading</h2>
-                        <p class="mb-4">Automatically replicate the trades of successful investors in real-time. Perfect for beginners and experienced traders looking to diversify their approach.</p>
-                        
-                        <div class="mb-4">
-                            <h4 class="h6 mb-3">Key Features</h4>
-                            <ul class="feature-list">
-                                <li><i class="fas fa-check-circle"></i> Follow unlimited users</li>
-                                <li><i class="fas fa-check-circle"></i> Customize copy amounts</li>
-                                <li><i class="fas fa-check-circle"></i> Set risk limits</li>
-                                <li><i class="fas fa-check-circle"></i> Real-time performance tracking</li>
-                                <li><i class="fas fa-check-circle"></i> One-click copy setup</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="btn btn-custom-filled">Learn More</button>
-                    </div>
-                    <div class="col-lg-6">
-                        <div style="height: 300px; background: linear-gradient(45deg, #1a1a1a, #2a2a2a); display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-copy text-primary-orange" style="font-size: 4rem; opacity: 0.5;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Staking Product -->
-            <!-- <div class="product-feature">
-                <div class="row g-0">
-                    <div class="col-lg-6 order-lg-2 p-4">
-                        <div class="feature-icon mb-3">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <h2 class="h3 mb-3 text-primary-orange">Staking</h2>
-                        <p class="mb-4">Earn passive income by staking your crypto assets with competitive yields and flexible lock-up periods.</p>
-                        
-                        <div class="mb-4">
-                            <h4 class="h6 mb-3">Key Features</h4>
-                            <ul class="feature-list">
-                                <li><i class="fas fa-check-circle"></i> High APY rates</li>
-                                <li><i class="fas fa-check-circle"></i> Multiple cryptocurrencies supported</li>
-                                <li><i class="fas fa-check-circle"></i> Flexible and fixed terms</li>
-                                <li><i class="fas fa-check-circle"></i> Compound interest options</li>
-                                <li><i class="fas fa-check-circle"></i> Automatic rewards distribution</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="btn btn-custom-filled">Learn More</button>
-                    </div>
-                    <div class="col-lg-6 order-lg-1">
-                        <div style="height: 300px; background: linear-gradient(45deg, #1a1a1a, #2a2a2a); display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-coins text-primary-orange" style="font-size: 4rem; opacity: 0.5;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Additional products would follow the same pattern -->
-        <!-- </div> -->
-    <!-- </section> -->
-
-    <!-- Stats Section -->
-    <!-- <section class="section-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title"><span class="highlight-text">Our</span> Numbers</h2>
-                    <p class="section-subtitle">Achievements of our Company</p>
-                </div>
-            </div>
-            
-            <div class="row justify-content-center g-3">
-                <div class="col-md-6">
-                    <div class="stats-card">
-                        <div class="stat-number">3M</div>
-                        <div class="stat-label">Active Investors</div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="stats-card">
-                        <div class="stat-number">$3.7B</div>
-                        <div class="stat-label">Market Capitalization</div>
-                    </div>
-                </div>
-            </div>
-            
-        
-        </div>
-    </section> -->
-
-    <!-- Testimonials Section -->
-    <!-- <section id="testimonials" class="section-darker">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title"><span class="highlight-text">Trusted</span> by Users Worldwide</h2>
-                    <p class="section-subtitle">Hear what our community has to say about their experience</p>
-                </div>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★★</div>
-                        <h4 class="testimonial-author">Sarah Johnson</h4>
-                        <p class="testimonial-position">Retail Investor</p>
-                        <p class="testimonial-content">"This platform is a game-changer! The intuitive interface and robust features make it incredibly easy to use, even for a beginner like me. I've been able to navigate with confidence and achieve impressive results."</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★★</div>
-                        <h4 class="testimonial-author">Michael Davison</h4>
-                        <p class="testimonial-position">Day Trader</p>
-                        <p class="testimonial-content"> "I've tried several platforms, but this one stands out for its strength and user-friendliness. The streamlined design and powerful tools have taken my investment experience to the next level."</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★☆</div>
-                        <h4 class="testimonial-author">Emma Rodriguez</h4>
-                        <p class="testimonial-position">Portfolio Manager</p>
-                        <p class="testimonial-content">"I was blown away by the platform's stability and ease of use. Even with limited experience, I was able to quickly get started and start seeing returns. It's truly empowering to have such a powerful tool at my fingertips."</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Partners Section -->
-    <!-- <section class="section-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center mb-5">
-                    <h2 class="section-title"><span class="highlight-text">Powered</span> By Industry Leaders</h2>
-                    <p class="section-subtitle">We partner with the most trusted names in finance and technology</p>
-                </div>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">FXCM</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">XOHub</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">IXO PRIME</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">Finalto</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">B2Prime</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">Swissquote</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">XTB</div>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="partner-card">
-                        <div class="fw-bold text-center">Crefisa</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-5">
-                <p class="text-muted">Want to become a partner? <a href="#" class="text-primary-orange">Contact our partnership team</a></p>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- CTA Section -->
-    <!-- <section class="cta-section py-5 position-relative">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center text-white position-relative" style="z-index: 2;">
-                    <h2 class="display-5 fw-bold mb-4">Ready to Transform Your Trading Experience?</h2>
-                    <p class="lead mb-4">Join thousands of successful traders who have already taken control of their financial future with our comprehensive trading platform.</p>
-                    <button class="btn btn-light btn-lg px-5 py-3">
-                        <span class="text-dark fw-bold">Create Free Account</span>
-                        <i class="fas fa-arrow-right ms-2 text-dark"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section> -->
 
     <!-- About Section -->
     <section id="about" class="section-dark">
@@ -929,116 +551,18 @@
                     <h2 class="section-title">About <span class="highlight-text">Us</span></h2>
                     <div class="row justify-content-center">
                         <div class="col-lg-8 text-center">
-                            <p class="lead mb-5">The Quantum Financial System (QFS) is revolutionizing the world's monetary landscape. Backed by tangible assets like gold, platinum, and oil, QFS Gold Grid Ledger offers a secure, decentralized, and transparent financial framework.</p>
+                            <p class="lead mb-5">The Quantum Financial System (QFS) is revolutionizing the world's
+                                monetary landscape. Backed by tangible assets like gold, platinum, and oil, QFS Gold
+                                Grid Ledger offers a secure, decentralized, and transparent financial framework.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- <div class="row mb-5">
-                <div class="col-lg-6 mb-4">
-                    <h3 class="h4 text-primary-orange mb-3">Our Mission</h3>
-                    <p>To provide a secure, intuitive, and feature-rich trading environment that enables users to make informed investment decisions with confidence. We believe in transparency, innovation, and accessibility.</p>
-                </div>
-                <div class="col-lg-6 mb-4">
-                    <h3 class="h4 text-primary-orange mb-3">What We Offer</h3>
-                    <p>Advanced trading tools, multi-asset trading, secure & reliable platform, lightning-fast execution, and dedicated support & education for traders at all levels.</p>
-                </div>
-            </div> -->
-            
-            <!-- <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>Advanced Trading Tools</h3>
-                        <p>AI-driven analytics, real-time market insights, and professional-grade charting.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <h3>Multi-Asset Trading</h3>
-                        <p>Access stocks, forex, commodities, indices, and cryptocurrencies from one platform.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Secure & Reliable</h3>
-                        <p>Bank-grade encryption and compliance with global regulatory standards.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3>Lightning-Fast Execution</h3>
-                        <p>State-of-the-art technology for minimal slippage and optimal execution.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3>Dedicated Support</h3>
-                        <p>24/7 customer assistance and comprehensive learning resources.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-card h-100">
-                        <div class="feature-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3>Innovation</h3>
-                        <p>Continuously pushing boundaries in trading technology and user experience.</p>
-                    </div>
-                </div>
-            </div> -->
-            
-            <!-- <div class="row mt-5">
-                <div class="col-12">
-                    <h3 class="h4 text-center text-primary-orange mb-4">Our Values</h3>
-                    <div class="row g-4">
-                        <div class="col-md-4 text-center">
-                            <div class="p-4 bg-dark-tertiary rounded-3 h-100" style="background-color: var(--dark-tertiary) !important;">
-                                <i class="fas fa-lightbulb text-primary-orange fs-1 mb-3"></i>
-                                <h4>Innovation</h4>
-                                <p class="text-muted">We continuously push the boundaries of what's possible in trading technology.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <div class="p-4 bg-dark-tertiary rounded-3 h-100" style="background-color: var(--dark-tertiary) !important;">
-                                <i class="fas fa-eye text-primary-orange fs-1 mb-3"></i>
-                                <h4>Transparency</h4>
-                                <p class="text-muted">We believe in clear communication and honest business practices.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <div class="p-4 bg-dark-tertiary rounded-3 h-100" style="background-color: var(--dark-tertiary) !important;">
-                                <i class="fas fa-universal-access text-primary-orange fs-1 mb-3"></i>
-                                <h4>Accessibility</h4>
-                                <p class="text-muted">We make sophisticated trading tools available to everyone.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            
+
+
             <div class="text-center mt-5">
-                <p class="lead">Join us on our mission to revolutionize the financing experience and empower investors worldwide.</p>
+                <p class="lead">Join us on our mission to revolutionize the financing experience and empower investors
+                    worldwide.</p>
             </div>
         </div>
     </section>
@@ -1049,85 +573,23 @@
             <div class="row g-4 d-flex justify-content-evenly">
                 <!-- Column 1: Logo and Info -->
                 <div class="col-12 d-flex align-items-center justify-content-between">
-                    <a href="#" class="d-inline-block mb-3" style="font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 700; text-decoration: none;">
+                    <a href="#" class="d-inline-block mb-3"
+                        style="font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 700; text-decoration: none;">
                         <span class="text-white">QFS</span><span class="text-primary-orange">FINANCIAL SYSTEM</span>
                     </a>
-                    <!-- <p class="text-muted mb-4">The leading platform for financing and diversified investment opportunities across globe.</p> -->
-                    <!-- <div class="social-icons">
-                        <a href="#" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
+                    <div class="d-flex gap-3">
+                        <a href="sign-in.html" class="d-inline-block mb-3"
+                            style="font-family: 'Manrope', sans-serif; text-decoration: none;">
+                            <span class="text-white">Login</span><span class="text-primary-orange"></span>
                         </a>
-                        <a href="#" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
+                        <a href="sign-up.html" class="d-inline-block mb-3"
+                            style="font-family: 'Manrope', sans-serif; text-decoration: none;">
+                            <span class="text-white">Register</span><span class="text-primary-orange"></span>
                         </a>
-                        <a href="#" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" aria-label="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div> -->
-                      <div class="d-flex gap-3">
-                        <a href="sign-in.html" class="d-inline-block mb-3" style="font-family: 'Manrope', sans-serif; text-decoration: none;">
-                        <span class="text-white">Login</span><span class="text-primary-orange"></span>
-                    </a>
-                      <a href="sign-up.html" class="d-inline-block mb-3" style="font-family: 'Manrope', sans-serif; text-decoration: none;">
-                        <span class="text-white">Register</span><span class="text-primary-orange"></span>
-                    </a>
-                      </div>
+                    </div>
                 </div>
 
-                <!-- Column 2: Products -->
-                <!-- <div class="col-lg-2 col-md-6">
-                    <h5>Products</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#">Copy Trading</a></li>
-                        <li class="mb-2"><a href="#">Staking</a></li>
-                        <li class="mb-2"><a href="#">ETF Trading</a></li>
-                        <li class="mb-2"><a href="#">Stock Trading</a></li>
-                        <li class="mb-2"><a href="#">CFD Trading</a></li>
-                        <li class="mb-2"><a href="#">Metals</a></li>
-                    </ul>
-                </div> -->
 
-                <!-- Column 3: Company -->
-                <!-- <div class="col-lg-2 col-md-6"> -->
-                    <!-- <h5>Company</h5> -->
-                    <!-- <ul class="list-unstyled"> -->
-                        <!-- <li class="mb-2"><a href="#">About Us</a></li> -->
-                        <!-- <li class="mb-2"><a href="#">Careers</a></li> -->
-                        <!-- <li class="mb-2"><a href="#">Press</a></li> -->
-                        <!-- <li class="mb-2"><a href="#">News</a></li> -->
-                        <!-- <li class="mb-2"><a href="#">Contact</a></li> -->
-                        <!-- <li class="mb-2"><a href="#">Partners</a></li> -->
-                    <!-- </ul> -->
-                <!-- </div> -->
-
-                <!-- Column 4: Contact Us -->
-                <!-- <div class="col-lg-4 col-md-6">
-                    <h5>Contact Us</h5>
-                    <div class="mb-3">
-                        <div class="d-flex align-items-start">
-                            <i class="fas fa-map-marker-alt text-primary-orange mt-1 me-3"></i>
-                            <div>
-                                123 Broadwick Street, Financial District<br>
-                                New York, NY 10001
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-phone text-primary-orange me-3"></i>
-                            <a href="tel:+15551234567">+1 (555) 123-4567</a>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-envelope text-primary-orange me-3"></i>
-                            <a href="mailto:support@Qfsgoldgridledgerorg.com">support@Qfsgoldgridledgerorg.com</a>
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
             <hr class="my-4" style="border-color: rgba(255, 107, 53, 0.2);">
@@ -1137,43 +599,17 @@
                     <p class="text-muted mb-0">© 2025 Qfsgoldgridledger. All rights reserved.</p>
                 </div>
 
-                <!-- <div class="col-lg-4 text-center">
-                    <div class="d-flex justify-content-center gap-3">
-                        <div class="bg-secondary rounded p-2" style="width: 40px; height: 25px; background-color: var(--dark-tertiary) !important;">
-                            <small class="text-white">VISA</small>
-                        </div>
-                        <div class="bg-secondary rounded p-2" style="width: 40px; height: 25px; background-color: var(--dark-tertiary) !important;">
-                            <small class="text-white">MC</small>
-                        </div>
-                        <div class="bg-secondary rounded p-2" style="width: 40px; height: 25px; background-color: var(--dark-tertiary) !important;">
-                            <small class="text-white">PP</small>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- <div class="col-lg-4 text-center text-lg-end">
-                    <div class="d-flex justify-content-center justify-content-lg-end gap-3 flex-wrap">
-                        <a href="#" class="small">Terms of Service</a>
-                        <a href="#" class="small">Privacy Policy</a>
-                        <a href="#" class="small">Risk Disclosure</a>
-                    </div>
-                </div> -->
             </div>
 
-            <!-- <div class="text-center mt-4">
-                <p class="small text-muted">
-                    <strong>Risk Warning:</strong> Trading financial instruments carries a high level of risk to your capital with the possibility of losing more than your initial investment. Trading is not suitable for everyone and you should ensure you understand the risks involved.
-                </p>
-            </div> -->
         </div>
     </footer>
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Swiper JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
-    
+
     <!-- Custom JavaScript -->
     <script>
         // Smooth scrolling for navigation links
@@ -1193,12 +629,12 @@
         // Animate numbers
         function animateNumbers() {
             const numbers = document.querySelectorAll('.stat-number');
-            
+
             numbers.forEach(number => {
                 const target = number.textContent;
                 const numericTarget = parseFloat(target.replace(/[^\d.]/g, ''));
                 const suffix = target.replace(/[\d.]/g, '');
-                
+
                 let current = 0;
                 const increment = numericTarget / 50;
                 const timer = setInterval(() => {
@@ -1207,7 +643,7 @@
                         current = numericTarget;
                         clearInterval(timer);
                     }
-                    
+
                     if (numericTarget < 10) {
                         number.textContent = current.toFixed(1) + suffix;
                     } else {
@@ -1229,12 +665,11 @@
             });
         }, { threshold: 0.1 });
 
-        // Observe elements for animation
         document.querySelectorAll('.fade-in-up, .stats-card').forEach(el => {
             observer.observe(el);
         });
 
-        // Navbar background on scroll
+
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
@@ -1244,10 +679,9 @@
             }
         });
 
-        // Initialize hero slider (if needed)
-        // You can add Swiper initialization here if you want to implement the hero slider
 
-        
+
     </script>
 </body>
+
 </html>
