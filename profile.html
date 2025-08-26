@@ -738,8 +738,8 @@
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         mobileToggle.addEventListener('click', () => {
-            sidebar.classList.add('show');
-            overlay.classList.add('show');
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
         });
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('show');

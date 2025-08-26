@@ -534,8 +534,8 @@
                 overlay.classList.add('show');
             });
             overlay.addEventListener('click', () => {
-                sidebar.classList.remove('show');
-                overlay.classList.remove('show');
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
             });
 
             // Custom File Input Logic
