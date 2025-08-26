@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - Quantum Financial System</title>
-    
+
+    <!-- International Telephone Input -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+
     <!-- Gilroy Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary-orange: #ff6b35;
@@ -243,7 +249,7 @@
             .signup-container .row {
                 justify-content: center;
             }
-            
+
             .form-column {
                 padding: 1.5rem;
                 min-height: 100vh;
@@ -252,15 +258,15 @@
                 justify-content: center;
                 max-width: 100%;
             }
-            
+
             .form-column::after {
                 display: none;
             }
-            
+
             .signup-title {
                 font-size: 2rem;
             }
-            
+
             .col-lg-6:first-child {
                 flex: 0 0 100%;
                 max-width: 100%;
@@ -272,7 +278,7 @@
                 flex-direction: column;
                 gap: 0;
             }
-            
+
             .form-row .form-group {
                 margin-bottom: 1.5rem;
             }
@@ -284,12 +290,12 @@
                 text-align: center;
                 margin-bottom: 1rem;
             }
-            
+
             .signup-subtitle {
                 text-align: center;
                 margin-bottom: 2rem;
             }
-            
+
             .form-column {
                 padding: 1rem;
                 min-height: 100vh;
@@ -297,13 +303,13 @@
                 align-items: center;
                 justify-content: center;
             }
-            
+
             .signup-form {
                 width: 100%;
                 max-width: 380px;
                 margin: 0 auto;
             }
-            
+
             .back-link {
                 text-align: center;
                 justify-content: center;
@@ -321,19 +327,70 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
-        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-1 {
+            animation-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            animation-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            animation-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            animation-delay: 0.4s;
+        }
+
+        .stagger-5 {
+            animation-delay: 0.5s;
+        }
+
+        #phone {
+            padding-left: 50px !important;
+
+        }
+
+        .iti {
+            width: 100%;
+
+        }
+
+
+        .iti__country-list {
+            background: #fff;
+
+            color: #000;
+
+            font-size: 14px;
+
+            border: 1px solid #ccc;
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 2000 !important;
+
+        }
+
+
+        .iti__country.iti__highlight {
+            background-color: #007bff;
+            /* Bootstrap primary blue */
+            color: #fff;
+        }
     </style>
 </head>
+
 <body>
     <div class="signup-container">
         <div class="row w-100">
@@ -358,28 +415,16 @@
                                     <label for="firstName" class="form-label font-gilroy">
                                         First Name <span class="required">*</span>
                                     </label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="firstName" 
-                                        name="firstName"
-                                        placeholder="Enter first name"
-                                        required
-                                    >
+                                    <input type="text" class="form-control" id="firstName" name="firstName"
+                                        placeholder="Enter first name" required>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="lastName" class="form-label font-gilroy">
                                         Last Name <span class="required">*</span>
                                     </label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="lastName" 
-                                        name="lastName"
-                                        placeholder="Enter last name"
-                                        required
-                                    >
+                                    <input type="text" class="form-control" id="lastName" name="lastName"
+                                        placeholder="Enter last name" required>
                                 </div>
                             </div>
 
@@ -388,27 +433,18 @@
                                 <label for="email" class="form-label font-gilroy">
                                     Email <span class="required">*</span>
                                 </label>
-                                <input 
-                                    type="email" 
-                                    class="form-control" 
-                                    id="email" 
-                                    name="email"
-                                    placeholder="Enter your email address"
-                                    required
-                                >
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter your email address" required>
                             </div>
 
                             <!-- Phone -->
                             <div class="form-group">
-                                <label for="phone" class="form-label font-gilroy">Phone</label>
-                                <input 
-                                    type="tel" 
-                                    class="form-control" 
-                                    id="phone" 
-                                    name="phone"
-                                    placeholder="Enter your phone number"
-                                >
+                                <label for="phone" class="form-label font-gilroy">Phone <span
+                                        class="required">*</span></label>
+                                <input type="tel" class="form-control w-100" id="phone" name="phone" required>
                             </div>
+
+
 
                             <!-- Password -->
                             <div class="form-group">
@@ -416,14 +452,8 @@
                                     Password <span class="required">*</span>
                                 </label>
                                 <div class="password-wrapper">
-                                    <input 
-                                        type="password" 
-                                        class="form-control" 
-                                        id="password" 
-                                        name="password"
-                                        placeholder="Enter your password"
-                                        required
-                                    >
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Enter your password" required>
                                     <button type="button" class="password-toggle" id="togglePassword">
                                         <i class="fas fa-eye"></i>
                                     </button>
@@ -435,14 +465,8 @@
                                 <label for="confirmPassword" class="form-label font-gilroy">
                                     Confirm Password <span class="required">*</span>
                                 </label>
-                                <input 
-                                    type="password" 
-                                    class="form-control" 
-                                    id="confirmPassword" 
-                                    name="confirmPassword"
-                                    placeholder="Confirm your password"
-                                    required
-                                >
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                    placeholder="Confirm your password" required>
                             </div>
 
                             <button type="submit" class="btn btn-signup font-gilroy fade-in-up stagger-4">
@@ -481,10 +505,10 @@
 
     <script>
         // Password toggle functionality
-        document.getElementById('togglePassword').addEventListener('click', function() {
+        document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const icon = this.querySelector('i');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 icon.classList.remove('fa-eye');
@@ -497,19 +521,19 @@
         });
 
         // Form submission handler
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const formData = new FormData(this);
             const password = formData.get('password');
             const confirmPassword = formData.get('confirmPassword');
-            
+
             // Basic validation
             if (password !== confirmPassword) {
                 alert('Passwords do not match');
                 return;
             }
-            
+
             // Add your signup logic here
             console.log('Sign up attempt:', {
                 firstName: formData.get('firstName'),
@@ -518,17 +542,17 @@
                 phone: formData.get('phone'),
                 password: formData.get('password')
             });
-            
+
             // For demo purposes
             alert('Sign up functionality would be implemented here');
         });
 
         // Add animation classes on page load
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             document.querySelectorAll('.fade-in-up').forEach(element => {
                 element.style.opacity = '0';
                 element.style.transform = 'translateY(30px)';
-                
+
                 setTimeout(() => {
                     element.style.transition = 'all 0.6s ease-out';
                     element.style.opacity = '1';
@@ -540,7 +564,7 @@
         // Enhanced form validation
         const inputs = document.querySelectorAll('.form-control');
         inputs.forEach(input => {
-            input.addEventListener('blur', function() {
+            input.addEventListener('blur', function () {
                 if (this.value.trim() === '' && this.hasAttribute('required')) {
                     this.style.borderColor = '#dc3545';
                 } else {
@@ -548,22 +572,46 @@
                 }
             });
 
-            input.addEventListener('focus', function() {
+            input.addEventListener('focus', function () {
                 this.style.borderColor = 'var(--primary-orange)';
             });
         });
 
         // Password confirmation validation
-        document.getElementById('confirmPassword').addEventListener('input', function() {
+        document.getElementById('confirmPassword').addEventListener('input', function () {
             const password = document.getElementById('password').value;
             const confirmPassword = this.value;
-            
+
             if (confirmPassword && password !== confirmPassword) {
                 this.style.borderColor = '#dc3545';
             } else {
                 this.style.borderColor = 'rgba(255, 107, 53, 0.2)';
             }
         });
+
+
+        // Initialize intl-tel-input
+        const phoneInputField = document.querySelector("#phone");
+        const iti = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            geoIpLookup: function (callback) {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("us"));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
+        });
+
+        // Update value with full number on submit
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fullPhone = iti.getNumber(); // Full international format
+            console.log("User phone:", fullPhone);
+            // Save this instead of plain input value
+        });
+
     </script>
 </body>
+
 </html>
