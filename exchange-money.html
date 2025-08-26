@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Money - Quantum Financial System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #f59e0b;
+            --dark-bg: #1e1b2e;
+            --dark-card: #2a2438;
+            --dark-sidebar: #1a1625;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+        }
+
+        [data-theme="dark"] {
+            --bs-body-bg: var(--dark-bg);
+            --bs-body-color: var(--text-primary);
+            --bs-card-bg: var(--dark-card);
+            --bs-border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="light"] {
+            --bs-body-bg: #f8fafc;
+            --bs-body-color: #334155;
+            --bs-card-bg: #ffffff;
+            --bs-border-color: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar {
+            background: var(--dark-sidebar);
+            height: calc(100vh - 70px);
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 70px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            padding-bottom: 2rem;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar .navbar-brand {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav {
+            padding: 0 1rem;
+        }
+
+        .nav-section-title {
+            color: var(--secondary-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 1.5rem 0 0.5rem 0;
+            padding-left: 1rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+            min-height: calc(100vh - 70px);
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--dark-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: var(--border-color);
+            border: none;
+            border-radius: 20px;
+            width: 50px;
+            height: 26px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle.light {
+            background: var(--primary-color);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle.light::before {
+            transform: translateX(24px);
+        }
+
+        .profile-dropdown {
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 12px;
+            padding: 0.5rem 0;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            color: var(--bs-body-color);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-item i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .exchange-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .exchange-card {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            width: 120px;
+            height: 4px;
+            background: var(--border-color);
+            margin: 0 0.5rem;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .step.active {
+            background: var(--primary-color);
+        }
+
+        .step.completed {
+            background: var(--primary-color);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .form-label {
+            color: var(--bs-body-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-control,
+        .form-select {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: var(--dark-bg);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+            color: var(--text-primary);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .exchange-box {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .currency-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .currency-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .currency-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 0.875rem;
+            color: white;
+        }
+
+        .currency-icon.usd {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .currency-icon.xrp {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .currency-icon.xlm {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+
+        .balance-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .amount-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .amount-input::placeholder {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .swap-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .swap-button:hover {
+            transform: translate(-50%, -50%) rotate(180deg);
+            background: var(--secondary-color);
+        }
+
+        .fee-info {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .fee-row:last-child {
+            margin-bottom: 0;
+            font-weight: 600;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #5855eb;
+        }
+
+        .btn-primary:disabled {
+            background: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--bs-body-color);
+            font-size: 1.5rem;
+            padding: 0.5rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid var(--bs-border-color);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                top: 70px;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+                margin-top: 70px;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .exchange-card {
+                padding: 1.5rem;
+            }
+
+            .top-header {
+                padding: 0 1rem;
+            }
+
+            .step {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <header class="top-header">
+        <div class="header-left">
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" id="themeToggle"></button>
+            <div class="profile-dropdown">
+                <div class="profile-avatar" data-bs-toggle="dropdown">
+                    JC
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>View Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-wallet"></i>Check Wallet</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="overlay" id="overlay"></div>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="navbar-brand d-flex align-items-center">
+            <div class="me-2" style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-cube text-white"></i>
+            </div>
+            <div>
+                <div style="font-weight: 600; font-size: 1rem; color: var(--text-primary);">QUANTUM</div>
+                <div style="font-size: 0.75rem; color: var(--secondary-color);">FINANCIAL</div>
+            </div>
+        </div>
+
+        <div class="sidebar-nav">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-th-large"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="wallet.html">
+                        <i class="fas fa-wallet"></i>
+                        Wallets
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-section-title">TRANSACTIONS</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="transaction.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        Transactions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="request-money.html">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        Request Money
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-coins"></i>
+                        Exchange Money
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#withdrawals">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Withdrawals
+                        <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse" id="withdrawals">
+                       <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Withdraw Money</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Withdraw List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Withdraw Setting</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="nav-section-title">OTHERS</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Disputes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-ticket-alt"></i>
+                        Tickets
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-shield-alt"></i>
+                        Verifications
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content" id="mainContent">
+        <div class="exchange-container">
+            <div class="text-center mb-4">
+                <h2 class="mb-2">EXCHANGE MONEY</h2>
+                <div class="text-warning mb-3" style="font-size: 0.875rem; font-weight: 500;">Step: 1 of 3</div>
+                <h4 class="text-muted mb-4">Setup Money</h4>
+            </div>
+
+            <div class="step-indicator">
+                <div class="step active">
+                    <div class="step-number">Step 1</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">Step 2</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">Step 3</div>
+                </div>
+            </div>
+
+            <div class="exchange-card">
+                <p class="text-center text-muted mb-4">
+                    Exchange currencies from the comfort of your home, quickly, safely with a minimal fees. Select the wallet & put the amount you want to exchange.
+                </p>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">From <span class="text-warning">Balance: (0 USD)</span></label>
+                        <div class="exchange-box">
+                            <div class="currency-selector">
+                                <div class="currency-info">
+                                    <div class="currency-icon usd">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <select class="form-select border-0 bg-transparent text-white" style="width: auto;">
+                                        <option value="USD" selected>USD</option>
+                                        <option value="XRP">XRP</option>
+                                        <option value="XLM">XLM</option>
+                                    </select>
+                                </div>
+                                <i class="fas fa-chevron-down text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">To</label>
+                        <div class="exchange-box">
+                            <div class="currency-selector">
+                                <div class="currency-info">
+                                    <div class="currency-icon xrp">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <select class="form-select border-0 bg-transparent text-white" style="width: auto;">
+                                        <option value="">Select Currency</option>
+                                        <option value="USD">USD</option>
+                                        <option value="XRP" selected>XRP</option>
+                                        <option value="XLM">XLM</option>
+                                    </select>
+                                </div>
+                                <i class="fas fa-chevron-down text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="position-relative mb-4">
+                    <button class="swap-button" id="swapButton">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Your Amount</label>
+                    <div class="exchange-box">
+                        <input type="number" class="amount-input" placeholder="0.00" id="fromAmount">
+                    </div>
+                </div>
+
+                <div class="fee-info mb-4">
+                    <div class="fee-row">
+                        <span class="text-muted">Fee(0.00%+0.00)</span>
+                        <span>Total Fee: 0.00</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Converted Amount</label>
+                    <div class="exchange-box">
+                        <input type="number" class="amount-input" placeholder="0.00" id="toAmount" readonly>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="proceedButton">
+                    Proceed <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="copyright">
+            Copyright © 2025 <a href="#" class="text-primary text-decoration-none">quantumfinancialsystem</a> | All Rights Reserved.
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        let currentTheme = 'dark';
+        
+        themeToggle.addEventListener('click', () => {
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.classList.add('light');
+                currentTheme = 'light';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.classList.remove('light');
+                currentTheme = 'dark';
+            }
+        });
+
+        // Mobile Sidebar Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const overlay = document.getElementById('overlay');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('show');
+            overlay.classList.add('show');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+        });
+
+        // Nav link active state
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (!link.getAttribute('data-bs-toggle')) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Currency swap functionality
+        const swapButton = document.getElementById('swapButton');
+        const fromSelect = document.querySelector('.exchange-box:first-child select');
+        const toSelect = document.querySelector('.exchange-box:last-child select');
+
+        swapButton.addEventListener('click', () => {
+            const fromValue = fromSelect.value;
+            const toValue = toSelect.value;
+            
+            if (fromValue && toValue) {
+                fromSelect.value = toValue;
+                toSelect.value = fromValue;
+                
+                // Update currency icons
+                updateCurrencyIcons();
+            }
+        });
+
+        // Update currency icons based on selection
+        function updateCurrencyIcons() {
+            const fromIcon = document.querySelector('.exchange-box:first-child .currency-icon');
+            const toIcon = document.querySelector('.exchange-box:last-child .currency-icon');
+            
+            const fromValue = fromSelect.value;
+            const toValue = toSelect.value;
+            
+            // Update from icon
+            fromIcon.className = 'currency-icon ' + fromValue.toLowerCase();
+            fromIcon.innerHTML = getCurrencyIcon(fromValue);
+            
+            // Update to icon
+            if (toValue) {
+                toIcon.className = 'currency-icon ' + toValue.toLowerCase();
+                toIcon.innerHTML = getCurrencyIcon(toValue);
+            }
+        }
+
+        function getCurrencyIcon(currency) {
+            switch(currency) {
+                case 'USD': return '<i class="fas fa-dollar-sign"></i>';
+                case 'XRP': return '<i class="fas fa-coins"></i>';
+                case 'XLM': return '<i class="fas fa-star"></i>';
+                default: return '<i class="fas fa-coins"></i>';
+            }
+        }
+
+        // Currency selection change handlers
+        fromSelect.addEventListener('change', updateCurrencyIcons);
+        toSelect.addEventListener('change', updateCurrencyIcons);
+
+        // Simple exchange rate calculation (demo purposes)
+        const fromAmount = document.getElementById('fromAmount');
+        const toAmount = document.getElementById('toAmount');
+
+        fromAmount.addEventListener('input', () => {
+            const amount = parseFloat(fromAmount.value) || 0;
+            const fromCurrency = fromSelect.value;
+            const toCurrency = toSelect.value;
+            
+            if (amount && fromCurrency && toCurrency) {
+                // Demo exchange rates
+                let rate = 1;
+                if (fromCurrency === 'USD' && toCurrency === 'XRP') rate = 0.5;
+                if (fromCurrency === 'USD' && toCurrency === 'XLM') rate = 10;
+                if (fromCurrency === 'XRP' && toCurrency === 'USD') rate = 2;
+                if (fromCurrency === 'XRP' && toCurrency === 'XLM') rate = 20;
+                if (fromCurrency === 'XLM' && toCurrency === 'USD') rate = 0.1;
+                if (fromCurrency === 'XLM' && toCurrency === 'XRP') rate = 0.05;
+                
+                toAmount.value = (amount * rate).toFixed(2);
+            } else {
+                toAmount.value = '';
+            }
+        });
+
+        // Proceed button
+        document.getElementById('proceedButton').addEventListener('click', () => {
+            // Add step progression logic here
+            alert('Proceeding to step 2...');
+        });
+    </script>
+</body>
+</html>
