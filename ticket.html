@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Financial System - Withdrawal-list</title>
+    <title>Tickets - Quantum Financial System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -149,7 +149,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .theme-toggle.light {
             background: var(--primary-color);
         }
@@ -214,6 +214,78 @@
             color: white;
         }
 
+        .page-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .tickets-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .priority-dropdown {
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            min-width: 200px;
+        }
+
+        .priority-dropdown:focus {
+            background: var(--dark-card);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+            color: var(--text-primary);
+        }
+
+        .priority-dropdown option {
+            background: var(--dark-card);
+            color: var(--text-primary);
+        }
+
+        .create-ticket-btn {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .create-ticket-btn:hover {
+            background: #5855eb;
+            color: white;
+        }
+
+        .no-data-card {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+        }
+
         .mobile-toggle {
             display: none;
             background: none;
@@ -238,86 +310,6 @@
             display: block;
         }
 
-        /* Wallet Page Specific Styles */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .empty-state-illustration {
-            width: 300px;
-            height: 200px;
-            margin: 0 auto 2rem;
-            background: var(--dark-card);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .empty-state-illustration::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            color: var(--primary-color);
-            z-index: 1;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            text-align: center;
-            padding: 2rem 1rem;
-            border-top: 1px solid var(--bs-border-color);
-            margin-top: 3rem;
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -338,25 +330,60 @@
                 display: block;
             }
 
+            .tickets-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .priority-dropdown {
+                min-width: 100%;
+            }
+
+            .no-data-card {
+                padding: 2rem 1rem;
+            }
+
             .top-header {
                 padding: 0 1rem;
             }
 
-            .page-header h1 {
-                font-size: 2rem;
+            .page-title {
+                font-size: 1.5rem;
             }
+        }
 
-            .empty-state {
-                padding: 2rem 1rem;
-            }
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid var(--bs-border-color);
+            margin-top: 3rem;
+        }
 
-            .empty-state-illustration {
-                width: 250px;
-                height: 160px;
-            }
+        .language-selector {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
 
-            .empty-state-icon {
-                font-size: 3rem;
+        .language-btn {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .language-selector {
+                bottom: 1rem;
+                right: 1rem;
             }
         }
     </style>
@@ -393,6 +420,7 @@
                 <img style="width: 100%; height: 100%;" src="assets/img/quantum-image.png" alt="">
             </div>
         </div>
+
         <div class="sidebar-nav">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -441,7 +469,7 @@
                                 <a class="nav-link" href="withdraw-money.html">Withdraw Money</a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link active" href="#">Withdraw List</a>
+                                <a class="nav-link" href="withdrawal-list.html">Withdraw List</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="withdrawal-setting.html">Withdraw Setting</a>
@@ -460,7 +488,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ticket.html">
+                    <a class="nav-link active" href="#">
                         <i class="fas fa-ticket-alt"></i>
                         Tickets
                     </a>
@@ -483,16 +511,31 @@
 
     <div class="main-content" id="mainContent">
         <div class="page-header">
-            <h1>Withdraw List</h1>
-            <p>History of all your withdrawal in your account</p>
+            <h1 class="page-title">TICKETS</h1>
+            <p class="page-subtitle">Ask support for any kinds of problem you face</p>
         </div>
 
-        <div class="empty-state">
-            <div class="empty-state-illustration">
-                <img src="assets/img/not-found.png" alt="">
+        <div class="tickets-controls">
+            <select class="priority-dropdown">
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+            </select>
+            
+            <a href="ticket-add.html" class="create-ticket-btn">
+                <i class="fas fa-plus"></i>
+                Create Ticket
+            </a>
+        </div>
+
+        <div class="no-data-card d-flex flex-lg-row flex-column align-items-center justify-content-lg-evenly justify-content-center">
+            <div class="text-center">
+                <img src="assets/img/not-found.png" alt="No Data" style="max-width: 100%; max-height: 100%;">
             </div>
-            <h3>Sorry! No data found.</h3>
-            <p>The requested data does not exist for this feature overview.</p>
+            <div class="text-lg-start text-center">
+                <h3 class="no-data-title">Sorry! No data found.</h3>
+                <p class="no-data-text">The requested data does not exist for this feature overview.</p>
+            </div>
         </div>
 
         <div class="copyright">
@@ -500,15 +543,15 @@
         </div>
     </div>
 
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        
-        // Set initial theme
+
         let currentTheme = 'dark';
-        
+
         themeToggle.addEventListener('click', () => {
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');

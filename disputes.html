@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Financial System - Withdrawal-list</title>
+    <title>Disputes - Quantum Financial System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -149,7 +150,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .theme-toggle.light {
             background: var(--primary-color);
         }
@@ -214,6 +215,143 @@
             color: white;
         }
 
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .disputes-header {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-section {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .filter-section.show {
+            display: block;
+        }
+
+        .filter-btn {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn.active {
+            background: var(--secondary-color);
+        }
+
+        .close-filter-btn {
+            background: var(--border-color);
+            border: none;
+            border-radius: 6px;
+            color: var(--text-primary);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+
+        .form-select {
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+        }
+
+        .form-select:focus {
+            background: var(--dark-card);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+            color: var(--text-primary);
+        }
+
+        .form-select option {
+            background: var(--dark-card);
+            color: var(--text-primary);
+        }
+
+        .no-data-card {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .no-data-placeholder {
+            width: 200px;
+            height: 150px;
+            background: var(--dark-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .no-data-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .no-data-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+        }
+
+        .btn-outline-light {
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+        }
+
+        .btn-outline-light:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
         .mobile-toggle {
             display: none;
             background: none;
@@ -238,86 +376,6 @@
             display: block;
         }
 
-        /* Wallet Page Specific Styles */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .empty-state-illustration {
-            width: 300px;
-            height: 200px;
-            margin: 0 auto 2rem;
-            background: var(--dark-card);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .empty-state-illustration::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            color: var(--primary-color);
-            z-index: 1;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            text-align: center;
-            padding: 2rem 1rem;
-            border-top: 1px solid var(--bs-border-color);
-            margin-top: 3rem;
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -338,29 +396,69 @@
                 display: block;
             }
 
+            .disputes-header {
+                padding: 1rem;
+            }
+
+            .filter-section {
+                padding: 1rem;
+            }
+
+            .no-data-card {
+                padding: 2rem 1rem;
+            }
+
+            .no-data-placeholder {
+                width: 150px;
+                height: 120px;
+            }
+
             .top-header {
                 padding: 0 1rem;
             }
 
-            .page-header h1 {
-                font-size: 2rem;
+            .page-title {
+                font-size: 1.5rem;
             }
+        }
 
-            .empty-state {
-                padding: 2rem 1rem;
-            }
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid var(--bs-border-color);
+            margin-top: 3rem;
+        }
 
-            .empty-state-illustration {
-                width: 250px;
-                height: 160px;
-            }
+        .language-selector {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
 
-            .empty-state-icon {
-                font-size: 3rem;
+        .language-btn {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .language-selector {
+                bottom: 1rem;
+                right: 1rem;
             }
         }
     </style>
 </head>
+
 <body data-theme="dark">
     <header class="top-header">
         <div class="header-left">
@@ -378,7 +476,9 @@
                     <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>View Profile</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-wallet"></i>Check Wallet</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i>Settings</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
                 </ul>
             </div>
@@ -388,15 +488,16 @@
     <div class="overlay" id="overlay"></div>
 
     <nav class="sidebar" id="sidebar">
-      <div class="navbar-brand d-flex align-items-center">
+        <div class="navbar-brand d-flex align-items-center">
             <div class="mx-auto" style="width: 80px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                 <img style="width: 100%; height: 100%;" src="assets/img/quantum-image.png" alt="">
             </div>
         </div>
+
         <div class="sidebar-nav">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard.html">
+                    <a class="nav-link" href="index.html">
                         <i class="fas fa-th-large"></i>
                         Dashboard
                     </a>
@@ -441,7 +542,7 @@
                                 <a class="nav-link" href="withdraw-money.html">Withdraw Money</a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link active" href="#">Withdraw List</a>
+                                <a class="nav-link" href="withdrawal-list.html">Withdraw List</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="withdrawal-setting.html">Withdraw Setting</a>
@@ -454,7 +555,7 @@
             <div class="nav-section-title">OTHERS</div>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="disputes.html">
+                    <a class="nav-link active" href="#">
                         <i class="fas fa-exclamation-triangle"></i>
                         Disputes
                     </a>
@@ -483,32 +584,82 @@
 
     <div class="main-content" id="mainContent">
         <div class="page-header">
-            <h1>Withdraw List</h1>
-            <p>History of all your withdrawal in your account</p>
+            <h1 class="page-title">Disputes</h1>
+            <p class="page-subtitle">Your conversations with admin relating problems</p>
         </div>
 
-        <div class="empty-state">
-            <div class="empty-state-illustration">
-                <img src="assets/img/not-found.png" alt="">
+        <div class="disputes-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">All lists of disputes</h5>
+                <button class="filter-btn" id="filterToggle">
+                    <i class="fas fa-filter"></i>
+                    Filter
+                </button>
             </div>
-            <h3>Sorry! No data found.</h3>
-            <p>The requested data does not exist for this feature overview.</p>
+        </div>
+
+        <div class="filter-section" id="filterSection">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0">Filter Options</h6>
+                <button class="close-filter-btn" id="closeFilter">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Date Range</label>
+                    <select class="form-select">
+                        <option selected>Pick a date range</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="7days">Last 7 days</option>
+                        <option value="30days">Last 30 days</option>
+                        <option value="custom">Custom range</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Status</label>
+                    <select class="form-select">
+                        <option selected>All</option>
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
+                        <option value="pending">Pending</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-outline-light">Reset</button>
+                <button class="btn btn-primary">Apply Filter</button>
+            </div>
+        </div>
+
+        <div
+            class="no-data-card d-flex flex-lg-row flex-column align-items-center justify-content-lg-evenly justify-content-center">
+            <div class="text-center">
+                <img src="assets/img/not-found.png" alt="No Data" style="max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="text-lg-start text-center">
+                <h3 class="no-data-title">Sorry! No data found.</h3>
+                <p class="no-data-text">The requested data does not exist for this feature overview.</p>
+            </div>
         </div>
 
         <div class="copyright">
-            Copyright © 2025 <a href="#" class="text-primary text-decoration-none">quantumfinancialsystem</a> | All Rights Reserved.
+            Copyright © 2025 <a href="#" class="text-primary text-decoration-none">quantumfinancialsystem</a> | All
+            Rights Reserved.
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        
-        // Set initial theme
+
         let currentTheme = 'dark';
-        
+
         themeToggle.addEventListener('click', () => {
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');
@@ -537,6 +688,28 @@
             overlay.classList.remove('show');
         });
 
+        // Filter Toggle
+        const filterToggle = document.getElementById('filterToggle');
+        const filterSection = document.getElementById('filterSection');
+        const closeFilter = document.getElementById('closeFilter');
+
+        filterToggle.addEventListener('click', () => {
+            filterSection.classList.toggle('show');
+            filterToggle.classList.toggle('active');
+
+            if (filterSection.classList.contains('show')) {
+                filterToggle.innerHTML = '<i class="fas fa-times"></i> Filter';
+            } else {
+                filterToggle.innerHTML = '<i class="fas fa-filter"></i> Filter';
+            }
+        });
+
+        closeFilter.addEventListener('click', () => {
+            filterSection.classList.remove('show');
+            filterToggle.classList.remove('active');
+            filterToggle.innerHTML = '<i class="fas fa-filter"></i> Filter';
+        });
+
         // Handle window resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
@@ -557,4 +730,5 @@
         });
     </script>
 </body>
+
 </html>

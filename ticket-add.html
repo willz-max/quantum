@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Financial System - Withdrawal-list</title>
+    <title>New Ticket - Quantum Financial System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -106,6 +106,9 @@
             margin-top: 70px;
             padding: 2rem;
             transition: margin-left 0.3s ease;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
         }
 
         .main-content.expanded {
@@ -149,7 +152,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .theme-toggle.light {
             background: var(--primary-color);
         }
@@ -214,6 +217,178 @@
             color: white;
         }
 
+        .page-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .ticket-form-container {
+            max-width: 960px; /* UPDATED */
+            margin: 0 auto;   /* UPDATED */
+            width: 100%;       /* ADDED for better responsiveness */
+        }
+
+        .ticket-form-card {
+            background: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            color: var(--bs-body-color);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-control {
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            padding: 0.875rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            background: var(--dark-card);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+            color: var(--text-primary);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .custom-select {
+            position: relative;
+        }
+
+        .select-button {
+            width: 100%;
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            padding: 0.875rem 1rem;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .select-button:hover,
+        .select-button.active {
+            border-color: var(--primary-color);
+        }
+
+        .select-button.placeholder {
+            color: var(--text-secondary);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            z-index: 1000;
+            margin-top: 4px;
+            display: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .select-dropdown.show {
+            display: block;
+        }
+
+        .select-option {
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .select-option:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .priority-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .priority-low { background-color: #10b981; }
+        .priority-medium { background-color: var(--secondary-color); }
+        .priority-high { background-color: #ef4444; }
+
+        .create-ticket-btn {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 0.875rem 2rem;
+            font-weight: 500;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .create-ticket-btn:hover {
+            background: #5855eb;
+            color: white;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            padding: 0.875rem 1.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
         .mobile-toggle {
             display: none;
             background: none;
@@ -238,86 +413,6 @@
             display: block;
         }
 
-        /* Wallet Page Specific Styles */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .empty-state-illustration {
-            width: 300px;
-            height: 200px;
-            margin: 0 auto 2rem;
-            background: var(--dark-card);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .empty-state-illustration::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            color: var(--primary-color);
-            z-index: 1;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            text-align: center;
-            padding: 2rem 1rem;
-            border-top: 1px solid var(--bs-border-color);
-            margin-top: 3rem;
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -338,26 +433,54 @@
                 display: block;
             }
 
+            .ticket-form-card {
+                padding: 1.5rem;
+            }
+
             .top-header {
                 padding: 0 1rem;
             }
 
-            .page-header h1 {
-                font-size: 2rem;
+            .page-title {
+                font-size: 1.5rem;
             }
+        }
 
-            .empty-state {
-                padding: 2rem 1rem;
-            }
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid var(--bs-border-color);
+            margin-top: auto;
+        }
 
-            .empty-state-illustration {
-                width: 250px;
-                height: 160px;
-            }
+        [data-theme="light"] .form-control {
+            background: white;
+            color: #334155;
+        }
 
-            .empty-state-icon {
-                font-size: 3rem;
-            }
+        [data-theme="light"] .form-control:focus {
+            background: white;
+            color: #334155;
+        }
+
+        [data-theme="light"] .form-control::placeholder {
+            color: #94a3b8;
+        }
+
+        [data-theme="light"] .select-button,
+        [data-theme="light"] .select-dropdown {
+            background: white;
+            color: #334155;
+        }
+
+        [data-theme="light"] .select-option {
+            color: #334155;
+        }
+
+        [data-theme="light"] .select-button.placeholder {
+            color: #94a3b8;
         }
     </style>
 </head>
@@ -388,11 +511,12 @@
     <div class="overlay" id="overlay"></div>
 
     <nav class="sidebar" id="sidebar">
-      <div class="navbar-brand d-flex align-items-center">
+       <div class="navbar-brand d-flex align-items-center">
             <div class="mx-auto" style="width: 80px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                 <img style="width: 100%; height: 100%;" src="assets/img/quantum-image.png" alt="">
             </div>
         </div>
+
         <div class="sidebar-nav">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -441,7 +565,7 @@
                                 <a class="nav-link" href="withdraw-money.html">Withdraw Money</a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link active" href="#">Withdraw List</a>
+                                <a class="nav-link" href="withdrawal-list.html">Withdraw List</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="withdrawal-setting.html">Withdraw Setting</a>
@@ -460,7 +584,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ticket.html">
+                    <a class="nav-link active" href="ticket.html">
                         <i class="fas fa-ticket-alt"></i>
                         Tickets
                     </a>
@@ -483,16 +607,54 @@
 
     <div class="main-content" id="mainContent">
         <div class="page-header">
-            <h1>Withdraw List</h1>
-            <p>History of all your withdrawal in your account</p>
+            <h1 class="page-title">NEW TICKET</h1>
+            <p class="page-subtitle">Write down to us the problem you are facing and set the level of priority. Our team will get back to you soon.</p>
         </div>
 
-        <div class="empty-state">
-            <div class="empty-state-illustration">
-                <img src="assets/img/not-found.png" alt="">
+        <div class="ticket-form-container">
+            <div class="ticket-form-card">
+                <form id="ticketForm">
+                    <div class="mb-4">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Enter Subject" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Priority</label>
+                        <div class="custom-select">
+                            <button type="button" class="select-button placeholder" id="priorityButton">
+                                Select Priority
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="select-dropdown" id="priorityDropdown">
+                                <div class="select-option" data-value="low">
+                                    <div class="priority-indicator priority-low"></div>
+                                    Low
+                                </div>
+                                <div class="select-option" data-value="medium">
+                                    <div class="priority-indicator priority-medium"></div>
+                                    Medium
+                                </div>
+                                <div class="select-option" data-value="high">
+                                    <div class="priority-indicator priority-high"></div>
+                                    High
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="priority" name="priority" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="message" rows="6" placeholder="Enter your message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="create-ticket-btn">
+                        <i class="fas fa-plus"></i>
+                        Create Ticket
+                    </button>
+                </form>
             </div>
-            <h3>Sorry! No data found.</h3>
-            <p>The requested data does not exist for this feature overview.</p>
         </div>
 
         <div class="copyright">
@@ -505,10 +667,9 @@
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        
-        // Set initial theme
+
         let currentTheme = 'dark';
-        
+
         themeToggle.addEventListener('click', () => {
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');
@@ -537,24 +698,66 @@
             overlay.classList.remove('show');
         });
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('show');
-                overlay.classList.remove('show');
+        // Custom Priority Dropdown
+        const priorityButton = document.getElementById('priorityButton');
+        const priorityDropdown = document.getElementById('priorityDropdown');
+        const priorityHidden = document.getElementById('priority');
+        const priorityOptions = document.querySelectorAll('.select-option');
+
+        priorityButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            priorityDropdown.classList.toggle('show');
+            priorityButton.classList.toggle('active');
+        });
+
+        priorityOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.dataset.value;
+                const originalContent = option.innerHTML;
+                
+                const chevron = '<i class="fas fa-chevron-down"></i>';
+                
+                priorityButton.innerHTML = originalContent + chevron;
+                
+                priorityButton.classList.remove('placeholder');
+                priorityHidden.value = value;
+                
+                priorityDropdown.classList.remove('show');
+                priorityButton.classList.remove('active');
+            });
+        });
+
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select')) {
+                priorityDropdown.classList.remove('show');
+                priorityButton.classList.remove('active');
             }
         });
 
-        // Nav link active state
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (!link.getAttribute('data-bs-toggle')) {
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                }
-            });
+        // Form Submit Handler
+        document.getElementById('ticketForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const subject = document.getElementById('subject').value;
+            const priority = document.getElementById('priority').value;
+            const message = document.getElementById('message').value;
+            
+            if (!subject || !priority || !message) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Here you would normally send the data to your server
+            alert('Ticket created successfully!');
+            
+            // Reset form
+            document.getElementById('ticketForm').reset();
+            priorityButton.innerHTML = 'Select Priority <i class="fas fa-chevron-down"></i>';
+            priorityButton.classList.add('placeholder');
+            priorityHidden.value = '';
         });
     </script>
 </body>
-</html>
+</html> 

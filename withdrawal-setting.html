@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Financial System - Withdrawal-list</title>
+    <title>Quantum Financial System - Withdrawal Settings</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -238,10 +238,10 @@
             display: block;
         }
 
-        /* Wallet Page Specific Styles */
+        /* Page Specific Styles */
         .page-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .page-header h1 {
@@ -253,6 +253,49 @@
         .page-header p {
             font-size: 1.1rem;
             color: var(--text-secondary);
+        }
+
+        .page-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .filter-dropdown {
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            min-width: 200px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-add-setting {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-add-setting:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         .empty-state {
@@ -309,6 +352,85 @@
             margin: 0 auto;
         }
 
+        /* Modal Styles */
+        .modal {
+            z-index: 1055;
+        }
+
+        .modal-content {
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .btn-close {
+            filter: invert(1);
+            opacity: 0.6;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-label {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: var(--dark-bg);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+            color: var(--text-primary);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-select option {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
         .copyright {
             color: var(--text-secondary);
             font-size: 0.875rem;
@@ -344,6 +466,15 @@
 
             .page-header h1 {
                 font-size: 2rem;
+            }
+
+            .page-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-dropdown {
+                min-width: 100%;
             }
 
             .empty-state {
@@ -388,11 +519,12 @@
     <div class="overlay" id="overlay"></div>
 
     <nav class="sidebar" id="sidebar">
-      <div class="navbar-brand d-flex align-items-center">
+       <div class="navbar-brand d-flex align-items-center">
             <div class="mx-auto" style="width: 80px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                 <img style="width: 100%; height: 100%;" src="assets/img/quantum-image.png" alt="">
             </div>
         </div>
+
         <div class="sidebar-nav">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -435,16 +567,16 @@
                         Withdrawals
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <div class="collapse" id="withdrawals">
+                    <div class="collapse show" id="withdrawals">
                         <ul class="nav flex-column ms-3">
                             <li class="nav-item">
                                 <a class="nav-link" href="withdraw-money.html">Withdraw Money</a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link active" href="#">Withdraw List</a>
+                               <a class="nav-link" href="withdrawal-list.html">Withdraw List</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="withdrawal-setting.html">Withdraw Setting</a>
+                                <a class="nav-link active" href="#">Withdraw Setting</a>
                             </li>
                         </ul>
                     </div>
@@ -483,8 +615,21 @@
 
     <div class="main-content" id="mainContent">
         <div class="page-header">
-            <h1>Withdraw List</h1>
-            <p>History of all your withdrawal in your account</p>
+            <h1>WITHDRAWAL SETTINGS</h1>
+            <p>All the options you have or can create to withdraw from your wallet</p>
+        </div>
+
+        <div class="page-controls">
+            <select class="filter-dropdown" id="filterSelect">
+                <option value="all">All</option>
+                <option value="paypal">Paypal</option>
+                <option value="bank">Bank</option>
+                <option value="crypto">Crypto</option>
+            </select>
+            <button class="btn-add-setting" data-bs-toggle="modal" data-bs-target="#addSettingModal">
+                <i class="fas fa-plus"></i>
+                Add Setting
+            </button>
         </div>
 
         <div class="empty-state">
@@ -500,13 +645,73 @@
         </div>
     </div>
 
+    <!-- Add Setting Modal -->
+    <div class="modal fade" id="addSettingModal" tabindex="-1" aria-labelledby="addSettingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSettingModalLabel">Add Withdrawal Setting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="withdrawalSettingForm">
+                        <div class="mb-3">
+                            <label for="withdrawalType" class="form-label">Withdrawal Type</label>
+                            <select class="form-select" id="withdrawalType" required>
+                                <option value="">Select withdrawal type</option>
+                                <option value="paypal">Paypal</option>
+                                <option value="bank">Bank</option>
+                                <option value="crypto">Crypto</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="emailAddress" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="emailAddress" placeholder="Ex: example@gmail.com" required>
+                        </div>
+
+                        <!-- Additional fields that appear based on withdrawal type -->
+                        <div id="bankFields" style="display: none;">
+                            <div class="mb-3">
+                                <label for="accountNumber" class="form-label">Account Number</label>
+                                <input type="text" class="form-control" id="accountNumber" placeholder="Enter account number">
+                            </div>
+                            <div class="mb-3">
+                                <label for="routingNumber" class="form-label">Routing Number</label>
+                                <input type="text" class="form-control" id="routingNumber" placeholder="Enter routing number">
+                            </div>
+                        </div>
+
+                        <div id="cryptoFields" style="display: none;">
+                            <div class="mb-3">
+                                <label for="walletAddress" class="form-label">Wallet Address</label>
+                                <input type="text" class="form-control" id="walletAddress" placeholder="Enter wallet address">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cryptoType" class="form-label">Crypto Type</label>
+                                <select class="form-select" id="cryptoType">
+                                    <option value="">Select crypto type</option>
+                                    <option value="bitcoin">Bitcoin (BTC)</option>
+                                    <option value="ethereum">Ethereum (ETH)</option>
+                                    <option value="xrp">XRP</option>
+                                    <option value="xlm">Stellar (XLM)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
-        // Set initial theme
         let currentTheme = 'dark';
         
         themeToggle.addEventListener('click', () => {
@@ -524,7 +729,6 @@
         // Mobile Sidebar Toggle
         const mobileToggle = document.getElementById('mobileToggle');
         const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
         const overlay = document.getElementById('overlay');
 
         mobileToggle.addEventListener('click', () => {
@@ -537,7 +741,6 @@
             overlay.classList.remove('show');
         });
 
-        // Handle window resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('show');
@@ -554,6 +757,59 @@
                     link.classList.add('active');
                 }
             });
+        });
+
+        // Withdrawal type change handler
+        const withdrawalTypeSelect = document.getElementById('withdrawalType');
+        const bankFields = document.getElementById('bankFields');
+        const cryptoFields = document.getElementById('cryptoFields');
+
+        withdrawalTypeSelect.addEventListener('change', function() {
+            const selectedType = this.value;
+            
+            // Hide all additional fields first
+            bankFields.style.display = 'none';
+            cryptoFields.style.display = 'none';
+            
+            // Show relevant fields based on selection
+            if (selectedType === 'bank') {
+                bankFields.style.display = 'block';
+            } else if (selectedType === 'crypto') {
+                cryptoFields.style.display = 'block';
+            }
+        });
+
+        // Form submission
+        const form = document.getElementById('withdrawalSettingForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to your backend
+            console.log('Form submitted with data:', data);
+            
+            // Close modal and reset form
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addSettingModal'));
+            modal.hide();
+            form.reset();
+            
+            // Reset additional fields visibility
+            bankFields.style.display = 'none';
+            cryptoFields.style.display = 'none';
+            
+            // Show success message (optional)
+            alert('Withdrawal setting added successfully!');
+        });
+
+        // Filter functionality
+        const filterSelect = document.getElementById('filterSelect');
+        filterSelect.addEventListener('change', function() {
+            const selectedFilter = this.value;
+            console.log('Filter changed to:', selectedFilter);
+            // Here you would implement the actual filtering logic
         });
     </script>
 </body>
