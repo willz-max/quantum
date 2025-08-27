@@ -124,7 +124,7 @@
             color: white;
         }
 
-        /* Hero Section */
+        /* Hero Section with Video Background */
         .hero-section {
             position: relative;
             height: 100vh;
@@ -133,11 +133,26 @@
 
         .hero-video {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            object-fit: cover;
+        }
+
+        .hero-video-fallback {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background-image: linear-gradient(to bottom right, rgba(31, 13, 6, 0.504), rgba(27, 15, 11, 0.488)), url('assets/img/header-2.jpg');
+            background-size: cover;
+            background-position: center;
             z-index: 1;
         }
 
@@ -147,7 +162,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(to bottom right, rgba(31, 13, 6, 0.504), rgba(27, 15, 11, 0.488)), url('assets/img/header-2.jpg');
+            background: linear-gradient(
+                45deg, 
+                rgba(0, 0, 0, 0.6) 0%, 
+                rgba(255, 107, 53, 0.1) 50%, 
+                rgba(0, 0, 0, 0.6) 100%
+            );
             z-index: 2;
         }
 
@@ -166,6 +186,7 @@
             font-weight: 800;
             margin-bottom: 2rem;
             line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .hero-description {
@@ -173,6 +194,7 @@
             color: var(--text-gray);
             margin-bottom: 2rem;
             line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         }
 
         /* Sections */
@@ -430,6 +452,44 @@
             width: 88px;
         }
 
+        .hero-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 450px;
+            opacity: 0.15;
+            z-index: 2;
+        }
+
+        /* Video Controls */
+        .video-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 4;
+        }
+
+        .video-toggle {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--primary-orange);
+            color: var(--primary-orange);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-toggle:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: scale(1.1);
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .hero-title {
@@ -442,6 +502,16 @@
 
             .hero-content {
                 text-align: center;
+            }
+
+            .video-controls {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .video-toggle {
+                width: 40px;
+                height: 40px;
             }
         }
 
@@ -474,16 +544,6 @@
         .stagger-4 {
             animation-delay: 0.4s;
         }
-
-        .hero-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 450px;
-            opacity: 0.15;
-            z-index: 2;
-        }
     </style>
 </head>
 
@@ -499,7 +559,6 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-4">
-
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About Us</a>
                     </li>
@@ -513,12 +572,38 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Video Background -->
     <section class="hero-section">
+        <!-- Video Background -->
+        <video 
+            id="heroVideo" 
+            class="hero-video" 
+            autoplay 
+            muted 
+            loop 
+            playsinline
+            poster="assets/img/header-2.jpg">
+            <source src="assets/img/main-hero.mp4" type="video/mp4">
+            <!-- <source src="assets/video/hero-background.webm" type="video/webm"> -->
+            <!-- Fallback for browsers that don't support video -->
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Fallback background for when video fails to load -->
+        <div class="hero-video-fallback"></div>
+
+        <!-- Video overlay -->
         <div class="hero-overlay"></div>
 
         <!-- Center Logo Background -->
         <img src="assets/img/quantum-image.png" alt="Company Logo" class="hero-logo">
+
+        <!-- Video Controls -->
+        <!-- <div class="video-controls">
+            <button id="videoToggle" class="video-toggle" title="Play/Pause Video">
+                <i class="fas fa-pause"></i>
+            </button>
+        </div> -->
 
         <div class="hero-content">
             <div class="container">
@@ -540,9 +625,6 @@
         </div>
     </section>
 
-
-
-
     <!-- About Section -->
     <section id="about" class="section-dark">
         <div class="container">
@@ -558,7 +640,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="text-center mt-5">
                 <p class="lead">Join us on our mission to revolutionize the financing experience and empower investors
@@ -588,8 +669,6 @@
                         </a>
                     </div>
                 </div>
-
-
             </div>
 
             <hr class="my-4" style="border-color: rgba(255, 107, 53, 0.2);">
@@ -598,9 +677,7 @@
                 <div class="col-lg-4 text-center text-lg-start">
                     <p class="text-muted mb-0">© 2025 Qfsgoldgridledger. All rights reserved.</p>
                 </div>
-
             </div>
-
         </div>
     </footer>
 
@@ -612,6 +689,41 @@
 
     <!-- Custom JavaScript -->
     <script>
+        // Video control functionality
+        const video = document.getElementById('heroVideo');
+        const videoToggle = document.getElementById('videoToggle');
+        const toggleIcon = videoToggle.querySelector('i');
+
+     
+        // Handle video load errors
+        video.addEventListener('error', function() {
+            console.log('Video failed to load, falling back to image background');
+            video.style.display = 'none';
+            document.querySelector('.hero-video-fallback').style.display = 'block';
+            videoToggle.style.display = 'none';
+        });
+
+        // Optimize video playback
+        video.addEventListener('loadeddata', function() {
+            video.playbackRate = 0.8; // Slightly slower for cinematic effect
+        });
+
+        // Pause video when not visible (performance optimization)
+        const heroSection = document.querySelector('.hero-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting && !video.paused) {
+                    video.pause();
+                    toggleIcon.className = 'fas fa-play';
+                } else if (entry.isIntersecting && video.paused) {
+                    video.play();
+                    toggleIcon.className = 'fas fa-pause';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(heroSection);
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -654,7 +766,7 @@
         }
 
         // Trigger animations on scroll
-        const observer = new IntersectionObserver((entries) => {
+        const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('fade-in-up');
@@ -666,10 +778,10 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-in-up, .stats-card').forEach(el => {
-            observer.observe(el);
+            scrollObserver.observe(el);
         });
 
-
+        // Navbar background change on scroll
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
@@ -679,8 +791,12 @@
             }
         });
 
-
-
+        // Preload video for better performance
+        window.addEventListener('load', () => {
+            if (video.readyState >= 3) {
+                video.play();
+            }
+        });
     </script>
 </body>
 
